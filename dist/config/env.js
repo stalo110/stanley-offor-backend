@@ -9,9 +9,9 @@ const envSchema = z.object({
     SMTP_HOST: z.string().optional(),
     SMTP_PORT: z.coerce.number().int().positive().optional(),
     SMTP_SECURE: z
-        .string()
+        .enum(['true', 'false'])
         .optional()
-        .transform((value) => value === 'true'),
+        .transform((value) => (value === undefined ? undefined : value === 'true')),
     SMTP_USER: z.string().optional(),
     SMTP_PASS: z.string().optional(),
     SMTP_FROM: z.string().optional()

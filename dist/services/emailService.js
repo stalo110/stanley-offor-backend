@@ -2,11 +2,12 @@ import nodemailer from 'nodemailer';
 import { env } from '../config/env.js';
 import { logger } from '../utils/logger.js';
 const hasSmtpConfig = Boolean(env.SMTP_HOST && env.SMTP_PORT && env.SMTP_USER && env.SMTP_PASS);
+const smtpSecure = env.SMTP_SECURE ?? env.SMTP_PORT === 465;
 const transporter = hasSmtpConfig
     ? nodemailer.createTransport({
         host: env.SMTP_HOST,
         port: env.SMTP_PORT,
-        secure: env.SMTP_SECURE,
+        secure: smtpSecure,
         auth: {
             user: env.SMTP_USER,
             pass: env.SMTP_PASS
